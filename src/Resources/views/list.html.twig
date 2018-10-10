@@ -6,6 +6,12 @@
 <body>
 <a role="button" href="{{ path('create') }}">Create a new task</a>
 <br/><br/>
+Choose your preferences : <br/>
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+<br/><br/>
 <table>
     <thead>
     <tr>
@@ -14,6 +20,7 @@
         <td>Description</td>
         <td>Status</td>
         <td>Creation Date</td>
+        <td>Modified Date</td>
     </tr>
     </thead>
     {% if taskList != null %}
@@ -24,9 +31,13 @@
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.status }}</td>
-            <td>{{ task.creationDate|date('d/m/Y') }}</td>
-            <td> <a role="button" href="{{ path('update') }}">Update</a></td>
-            <td> <a role="button" href="{{ path('delete') }}">Delete</a></td>
+            <td>{{ task.creationDate|date('d/m/Y H:i:s') }}</td>
+            {% if task.modifiedDate != null %}
+            <td>{{ task.modifiedDate|date('d/m/Y H:i:s') }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            <td> <a role="button" href="{{ path('update', { 'id' : task.id }) }}">Update</a></td>
         </tr>
     {% endfor %}
     </tbody>

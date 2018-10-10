@@ -7,9 +7,9 @@ create:
   controller: App\Controller\MainController:CreateAction
 
 update:
-  path: /update
-  controller: App\Controller\MainController:Update
+  path: /update/{id}
+  controller: App\Controller\MainController:UpdateAction
 
 delete:
-  path: /delete
-  controller: App\Controller\MainController:Delete
+  path: /delete/{id}
+  controller: App\Controller\MainController:DeleteAction

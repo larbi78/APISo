@@ -19,9 +19,9 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $statusChoices = [
-            'à faire' => 1,
-            'en cours' => 2,
-            'terminée' => 3
+            'à faire' => 'à faire',
+            'en cours' => 'en cours',
+            'terminée' => 'terminée'
         ];
         $builder
             ->add('Title', TextType::class)

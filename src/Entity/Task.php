@@ -41,9 +41,15 @@ class Task
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      **/
     private $creationDate;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     **/
+    private $modifiedDate;
 
 
     /**
@@ -125,6 +131,24 @@ class Task
     {
         $this->creationDate = $creationDate;
     }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * @param \DateTime $modifiedDate
+     */
+    public function setModifiedDate(\DateTime $modifiedDate): void
+    {
+        $this->modifiedDate = $modifiedDate;
+    }
+
+
 
 
 
