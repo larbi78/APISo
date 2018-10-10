@@ -8,29 +8,50 @@
 
 namespace App\Controller;
 
+use App\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Classes\Task;
+use App\Entity\Task;
+use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
 {
-    public function MainController()
+    public function ListAction()
     {
-        return ;
+        $taskList = $this->getDoctrine()->getRepository('App\Entity\Task')->findAll();
+        return $this->render('list.html.twig',
+            [
+                'taskList' => $taskList
+            ]);
     }
 
-    public function CreateController()
+    public function CreateAction(Request $request)
     {
-        $task = new Task();
+        $form = $this->createForm(TaskType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() and $form->isValid()) {
+            $task = new Task();
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $task->setTitle($data['Title']);
+            $task->setDescription($data['Description']);
+            $task->setStatus($data['Status']);
+            $task->setCreationDate(new \DateTime);
+            $em->persist($task);
+            $em->flush();
+            return $this->redirectToRoute('list');
+        }
+        return $this->render('create.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
 
+    public function DeleteAction()
+    {
 
     }
 
-    public function RemoveController()
-    {
-
-    }
-
-    public function UpdateController()
+    public function UpdateAction()
     {
 
     }

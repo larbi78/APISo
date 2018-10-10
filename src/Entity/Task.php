@@ -6,20 +6,43 @@
  * Time: 19:13
  */
 
-namespace App\Classes;
+namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ */
 class Task
 {
-    /** @var int */
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    /** @var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
     private $title;
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
     private $description;
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
     private $status;
 
-    /** @var \DateTime **/
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date")
+     **/
     private $creationDate;
 
 
