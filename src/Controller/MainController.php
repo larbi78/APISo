@@ -73,9 +73,10 @@ class MainController extends Controller
             $em->flush();
             return $this->redirectToRoute('list');
         }
-        return $this->render('create.html.twig',
+        return $this->render('createupdate.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'origin' => 'create'
             ]);
     }
 
@@ -103,19 +104,28 @@ class MainController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() and $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($task != $form->getData()) {
+            $uow = $em->getUnitOfWork();
+            $originalTask = $uow->getOriginalEntityData($task);
+            $oldTask = new Task();
+            $oldTask->setId($originalTask['id']);
+            $oldTask->setTitle($originalTask['title']);
+            $oldTask->setDescription($originalTask['description']);
+            $oldTask->setStatus($originalTask['status']);
+            $oldTask->setCreationDate($originalTask['creationDate']);
+            $originalTask['modifiedDate'] ? $oldTask->setModifiedDate($originalTask['modifiedDate']): null ;
+            if ($oldTask != $task) {
                 $task = $form->getData();
                 $task->setModifiedDate(new \DateTime);
-            } else
-                $task = $form->getData();
-            $em->persist($task);
-            $em->flush();
+                $em->persist($task);
+                $em->flush();
+            }
             return $this->redirectToRoute('list');
         }
-        return $this->render('update.html.twig',
+        return $this->render('createupdate.html.twig',
             [
                 'form' => $form->createView(),
-                'task' => $task
+                'task' => $task,
+                'origin' => 'update',
             ]);
     }
 }

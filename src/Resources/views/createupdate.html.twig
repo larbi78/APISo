@@ -1,0 +1,20 @@
+<html>
+<head>
+    {% if origin == 'create' %}
+    <title> Create a task</title>
+    {% elseif origin == 'update' %}
+    <title> Update a task</title>
+    {% endif %}
+
+    <meta charset="UTF-8">
+</head>
+<body>
+{% if origin == 'update' %}
+<a role="button" href="{{ path('delete', { 'id' : task.id }) }}">Delete this task</a><br/><br/>
+{% endif %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+</body>
+</html>
