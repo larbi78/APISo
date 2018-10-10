@@ -3,11 +3,11 @@ le fichier .env.dist comporte toutes les variables nécessaires pour se connecte
 Pour tester le projet il faut :
 1. Importer tout le projet en local.
 
-2. Copier le fichier .env.dist en le renommant .env .
+2. Créer une database du nom de testTechniqueLukas sur MySQL.
 
-3. Créer une database du nom de testTechniqueLukas sur MySQL.
+3. Dans le dossier test-technique, copier le fichier .env.dist en le renommant .env .
 
-4. Dans le dossier test-technique, lancer les commandes:
+4. Lancer les commandessuivantes:
   - composer install ,
   - php bin/console make:migration ,
   - php bin/console doctrine:migration:migrate ,
