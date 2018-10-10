@@ -7,7 +7,11 @@ Pour tester le projet il faut :
 
 3. Créer une database du nom de testTechniqueLukas sur MySQL.\
 
-4. Dans le dossier test-technique, lancer la commande php bin/console server:start \
+4. Dans le dossier test-technique, lancer les commandes:
+  - composer install ,\
+  - php bin/console make:migration ,\
+  - php bin/console doctrine:migration:migrate ,\
+  - php bin/console server:start \
 
 5. Atteindre la page 127.0.0.1:8000, qui vous dirigera directement vers la page d'accueil.\
 
