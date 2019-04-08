@@ -13,9 +13,6 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use App\Entity\Commande;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -26,7 +23,7 @@ class CommandeController extends AbstractFOSRestController
      *
      * This call takes into account all confirmed awards, but not pending or refused awards.
      *
-     * @Route("/api/list/1", methods={"GET"})
+     * @Route("/api/commandes", methods={"POST"})
      */
     public function AddAction(Request $request)
     {

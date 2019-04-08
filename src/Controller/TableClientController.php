@@ -9,10 +9,10 @@
 namespace App\Controller;
 
 use App\Entity\TableClient;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class TableClientController extends Controller
 {
@@ -21,21 +21,23 @@ class TableClientController extends Controller
      *
      * This call takes into account all confirmed awards, but not pending or refused awards.
      *
-     * @Rest\Route("/api/list2", methods={"GET"})
+     * @Route("/api/tableclients", methods={"GET"})
      */
     public function ListAction(Request $request)
     {
         $filter = $request->request->all();
+        $filterArray = [];
         if(isset($filter['status']))
-            $tableClientList = $this->getDoctrine()->getRepository(TableClient::class)->findBy([$filter['status']]);
-        else
-            $tableClientList = $this->getDoctrine()->getRepository(TableClient::class)->findAll();
+            $filterArray['status'] = $filter['status'];
+
+        $tableClientList = $this->getDoctrine()->getRepository(TableClient::class)->findBy($filterArray);
 
         return new JsonResponse($tableClientList);
     }
 
 
     /**
+     * @Route("/api/tableclients/{id}", methods={"PUT"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

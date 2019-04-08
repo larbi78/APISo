@@ -8,26 +8,28 @@
 
 namespace App\Controller;
 
-use App\Entity\Ingredient;
 use App\Entity\ProduitIngredient;
-use App\Entity\TableClient;
-use Symfony\Bundle\FrameWorkBundle;
-use App\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class IngredientController extends Controller
 {
     /**
+     * @Route("/api/ingredients", methods={"GET"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function ListAction(Request $request)
     {
         $ingredientList = [];
+        $filterArray = [];
         $filter = $request->request->all();
-        $produitIngredientList = $this->getDoctrine()->getRepository(ProduitIngredient::class)->findBy([$filter['id_Produit']]);
+        if(isset($filter['idProduit'])) {
+            $filterArray['id_Produit'] = $filter['idProduit'];
+        }
+        $produitIngredientList = $this->getDoctrine()->getRepository(ProduitIngredient::class)->findBy($filterArray);
 
         if ($produitIngredientList) {
             foreach($produitIngredientList as $produitIngredient) {

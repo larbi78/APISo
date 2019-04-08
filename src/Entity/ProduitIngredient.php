@@ -17,6 +17,7 @@ class ProduitIngredient
 {
     /**
      * @var int
+     * @ORM\Id
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -43,7 +44,7 @@ class ProduitIngredient
 
     /**
      * @var string
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string")
      **/
     private $details;
 
