@@ -29,7 +29,18 @@ class ProduitController extends Controller
             $filterArray['type'] = $filter['type'];
         }
         $filter = $request->request->all();
-        $produitList = $this->getDoctrine()->getRepository(Produit::class)->findBy([$filter['type']]);
-        return new JsonResponse($produitList);
+        $array = [];
+        $produitList = $this->getDoctrine()->getRepository(Produit::class)->findBy($filter);
+
+        foreach($produitList as $produit) {
+            $array[] = [
+                'id' => $produit->getId(),
+                'name' => $produit->getName(),
+                'status' => $produit->getStatus(),
+                'price' => $produit->getPrice(),
+                'type' => $produit->getType()
+            ];
+        }
+        return new JsonResponse($array);
     }
 }
