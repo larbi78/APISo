@@ -21,7 +21,7 @@ class TableClientController extends Controller
      *
      * This call takes into account all confirmed awards, but not pending or refused awards.
      *
-     * @Route("/api/tableclients", methods={"GET"})
+     * @Route("/api/tableclient", methods={"GET"})
      */
     public function ListAction(Request $request)
     {
@@ -31,8 +31,16 @@ class TableClientController extends Controller
             $filterArray['status'] = $filter['status'];
 
         $tableClientList = $this->getDoctrine()->getRepository(TableClient::class)->findBy($filterArray);
+        foreach($tableClientList as $tableClient) {
+            $array[] = [
+                'id' => $tableClient->getId(),
+                'numero' => $tableClient->getNumero(),
+                'seats' => $tableClient->getSeats(),
+                'status' => $tableClient->isStatus()
+            ];
+        }
 
-        return new JsonResponse($tableClientList);
+        return new JsonResponse($array);
     }
 
 
