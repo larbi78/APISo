@@ -39,4 +39,67 @@ class Ingredient
      */
     private $categorie;
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQte(): int
+    {
+        return $this->qte;
+    }
+
+    /**
+     * @param int $qte
+     */
+    public function setQte(int $qte): void
+    {
+        $this->qte = $qte;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategorie(): string
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * @param string $categorie
+     */
+    public function setCategorie(string $categorie): void
+    {
+        $this->categorie = $categorie;
+    }
 }

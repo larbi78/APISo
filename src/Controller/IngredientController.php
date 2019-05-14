@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ingredient;
 use App\Entity\ProduitIngredient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,19 +24,24 @@ class IngredientController extends Controller
      */
     public function ListAction(Request $request)
     {
-        $ingredientList = [];
-        $filterArray = [];
-        $filter = $request->request->all();
+        $filter = $request->query->all();
         if(isset($filter['idProduit'])) {
-            $filterArray['id_Produit'] = $filter['idProduit'];
+            $filterArray['produit'] = $filter['idProduit'];
         }
         $produitIngredientList = $this->getDoctrine()->getRepository(ProduitIngredient::class)->findBy($filterArray);
 
         if ($produitIngredientList) {
+            /** @var ProduitIngredient $produitIngredient */
             foreach($produitIngredientList as $produitIngredient) {
-                $ingredientList[] = $produitIngredient->getIngredient();
+                $ingredient = $produitIngredient->getIngredient();
+                $array[] = [
+                    'id' => $ingredient->getId(),
+                    'name' => $ingredient->getName(),
+                    'qte' => $ingredient->getQte(),
+                    'categorie' => $ingredient->getCategorie()
+                ];
             }
         }
-        return new JsonResponse($ingredientList);
+        return new JsonResponse($array);
     }
 }
